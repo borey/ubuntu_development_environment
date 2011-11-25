@@ -57,6 +57,11 @@ sudo apt-get install -y checkgmail
 #entertainment app
 sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese
 
+#install adobe air
+wget http://airdownload.adobe.com/air/lin/download/2.6/adobeair.deb
+sudo dpkg -i adobeair.deb
+sudo apt-get install -f
+rm adobeair.deb
 
 sudo apt-get upgrade -y
 
