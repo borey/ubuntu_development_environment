@@ -4,7 +4,7 @@
 sudo apt-get update
 
 #development environment
-sudo apt-get install -y curl vim openjdk-6-jre mercurial git gedit-plugins octave3.2 gnuplot build-essential ruby-full
+sudo apt-get install -y curl vim openjdk-7-jre openjdk-7-jdk mercurial git gedit-plugins octave3.2 gnuplot build-essential ruby-full
 
 # Install git
 bash < <( curl -s https://rvm.beginrescueend.com/install/git )
@@ -54,8 +54,8 @@ sudo apt-get install -y rar terminator gmountiso meld
 #office/work
 sudo apt-get install -y checkgmail
 
-#entertainment app
-sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese
+#entertainment & graphic app
+sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese gimp inkscape
 
 #install adobe air
 wget http://airdownload.adobe.com/air/lin/download/2.6/adobeair.deb
