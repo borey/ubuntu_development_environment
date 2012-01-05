@@ -1,39 +1,52 @@
 #!/bin/bash
 
-# Debs
+# Not allowed to run with sudo
+if [ "$(whoami)" = "root" ]; then
+	echo "Don't run server.bash with sudo."
+	exit 1
+fi
+
+# update packages
+echo "===================update packages======================="
 sudo apt-get update
 
 #development environment
-sudo apt-get install -y curl vim openjdk-7-jre openjdk-7-jdk mercurial git gedit-plugins octave3.2 gnuplot build-essential ruby-full
+sudo apt-get install -y vim openjdk-6-jre openjdk-6-jdk mercurial git-core gedit-plugins build-essential ruby-full 
 
-# Install git
-bash < <( curl -s https://rvm.beginrescueend.com/install/git )
+# Install packages for rvm
+echo "===================installing rvm packages======================="
+sudo apt-get install -y git-core curl build-essential zlib1g-dev libssl-dev libreadline5-dev
 
-# Install RVM
-bash < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
+rvm=`type rvm | head -n1`
+if [[ "$rvm" != rvm* ]]; then
+    echo "=============rvm not existed, installing now============"
+    sleep 10
+    bash < <(curl -s https://rvm.beginrescueend.com/install/rvm)
+    echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.' >> ~/.bashrc
+    source ~/.rvm/scripts/rvm
+    
+    echo "========================================================"
+    echo `type rvm | head -n1`
+    echo "========================================================"
+    if [[ "$rvm" != rvm* ]]; then
+        echo "rvm is not installed correctly"
+        exit 1
+    fi
+    
+    # ruby 1.9.2 packages
+    echo "=============installing ruby 1.9.2 packages============="
+    sudo apt-get install -y build-essential bison openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake
 
-# Install some Rubies
-source "$HOME/.rvm/scripts/rvm"
-rvm install 1.9.2
+    # Install ruby 1.9.2
+    rvm install 1.9.2
+    
+    if ! gem list | grep "bundler" >/dev/null; then
+        gem install bundler
+    fi
+fi
 
 #juicer dependency
 sudo apt-get install -y libxml2 libxml2-dev libxslt1-dev
-
-# Install Ruby Gems manually
-if ! which gem >/dev/null; then            
-  sudo wget http://rubyforge.org/frs/download.php/70696/rubygems-1.3.7.tgz
-  sudo tar xvfz rubygems-1.3.7.tgz
-  sudo ruby rubygems-1.3.7/setup.rb
-  sudo ln -s /usr/bin/gem1.8 /usr/bin/gem
-  #sudo gem update --system
-  sudo rm -rf rubygems-1.3.7.tgz rubygems-1.3.7
-fi
-
-sudo ln -s /usr/bin/gem1.8 /usr/local/bin/gem
-sudo ln -s /usr/bin/ruby1.8 /usr/local/bin/ruby
-sudo ln -s /usr/bin/rdoc1.8 /usr/local/bin/rdoc
-sudo ln -s /usr/bin/ri1.8 /usr/local/bin/ri
-sudo ln -s /usr/bin/irb1.8 /usr/local/bin/irb
 
 # Install required gems
 required_gems="juicer sprockets"
@@ -41,7 +54,7 @@ required_gems="juicer sprockets"
 for required_gem in ${required_gems}
 do
   if ! gem list | grep $required_gem >/dev/null; then
-  	sudo gem install $required_gem
+	gem install $required_gem
   fi
 done
 
@@ -49,10 +62,7 @@ juicer install yui_compressor
 juicer install jslint
 
 #utility
-sudo apt-get install -y rar terminator gmountiso meld
-
-#office/work
-sudo apt-get install -y checkgmail
+sudo apt-get install -y rar terminator furiusisomount meld samba
 
 #entertainment & graphic app
 sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese gimp inkscape
@@ -63,5 +73,6 @@ sudo dpkg -i adobeair.deb
 sudo apt-get install -f
 rm adobeair.deb
 
+#upgrade package
 sudo apt-get upgrade -y
 
