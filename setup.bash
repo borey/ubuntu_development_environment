@@ -11,7 +11,7 @@ echo "===================update packages======================="
 sudo apt-get update
 
 #development environment
-sudo apt-get install -y vim openjdk-6-jre openjdk-6-jdk mercurial git-core gedit-plugins build-essential ruby-full 
+sudo apt-get install -y vim openjdk-6-jre openjdk-6-jdk mercurial git-core build-essential ruby-full 
 
 # Install packages for rvm
 echo "===================installing rvm packages======================="
@@ -39,6 +39,7 @@ if [[ "$rvm" != rvm* ]]; then
 
     # Install ruby 1.9.2
     rvm install 1.9.2
+	rvm use 1.9.2
     
     if ! gem list | grep "bundler" >/dev/null; then
         gem install bundler
@@ -72,6 +73,48 @@ wget http://airdownload.adobe.com/air/lin/download/2.6/adobeair.deb
 sudo dpkg -i adobeair.deb
 sudo apt-get install -f
 rm adobeair.deb
+
+#install gedit plugins
+echo "Install gedit plugins"
+sudo apt-get install -y gedit-plugins
+
+if [ ! -d $HOME/.gedit ]; then
+	mkdir $HOME/.gedit
+fi
+
+cd $HOME/.gedit
+current_dir=$(pwd)
+plugin_dir="$HOME/.local/share/gedit/plugins"
+
+   ##snapopen
+if [ ! -d $HOME/.gedit/gedit-snapopen-plugin ]; then
+	git clone git://github.com/MadsBuus/gedit-snapopen-plugin.git
+	cd ~/.local/share/gedit/plugins
+	ln -s $current_dir/gedit-snapopen-plugin/snapopen.plugin .
+	ln -s $current_dir/gedit-snapopen-plugin/snapopen .
+	
+	cd $current_dir
+fi
+
+#if [ ! -d $HOME/.gedit/ ]; then
+#	current_dir=$(pwd)
+#	wget http://nchc.dl.sourceforge.net/project/symbol-browser/symbol-browser/gedit-symbol-browser-plugin/gedit-symbol-browser-plugin-0.1.tar.gz
+#	tar xvfz gedit-symbol-browser-plugin-0.1.tar.gz
+#	
+#	cd $current_dir
+#fi
+
+	##smart highlighting
+if [ ! -d $HOME/.gedit/smart_highlighting-3.0.1 ]; then
+	wget http://smart-highlighting-gedit.googlecode.com/files/smart_highlighting-3.0.1.tar.gz
+	tar xvfz smart_highlighting-3.0.1.tar.gz 
+	cd $plugin_dir
+	ln -s $current_dir/smart_highlighting-3.0.1/smart_highlight.plugin .
+	ln -s $current_dir/smart_highlighting-3.0.1/smart_highlight .
+	
+	cd $current_dir	
+	rm smart_highlighting-3.0.1.tar.gz
+fi
 
 #upgrade package
 sudo apt-get upgrade -y
