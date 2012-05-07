@@ -2,3 +2,15 @@
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
 sudo apt-get install sublime-text-2
+
+#synapse
+sudo add-apt-repository ppa:synapse-core/ppa
+sudo apt-get update && sudo apt-get install -y synapse
+
+#jdownloader
+sudo add-apt-repository ppa:jd-team/jdownloader
+sudo apt-get update && sudo apt-get install jdownloader
+
+#gmail watcher
+sudo apt-add-repository ppa:loneowais/gmailwatcher.dev
+sudo apt-get update && sudo apt-get install gmailwatcher
