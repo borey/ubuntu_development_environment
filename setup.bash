@@ -1,5 +1,9 @@
 #!/bin/bash
 
+####################################################
+# This script is mainly for Ubuntu Precise (12.04) #
+####################################################
+
 # Not allowed to run with sudo
 if [ "$(whoami)" = "root" ]; then
     echo "Don't run server.bash with sudo."
@@ -53,8 +57,11 @@ done
 juicer install yui_compressor
 juicer install jslint
 
+#communication
+sudo apt-get install -y skype
+
 #utility
-sudo apt-get install -y rar terminator furiusisomount meld samba
+sudo apt-get install -y rar terminator furiusisomount meld samba ppa-purge
 
 #entertainment & graphic app
 sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese gimp inkscape
