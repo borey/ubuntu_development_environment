@@ -66,6 +66,9 @@ sudo apt-get install -y rar terminator furiusisomount meld samba ppa-purge
 #entertainment & graphic app
 sudo apt-get install -y vlc vlc-plugin-pulse mozilla-plugin-vlc ubuntu-restricted-extras gstreamer0.10-ffmpeg cheese gimp inkscape
 
+#office app
+sudo apt-get install -y babiloo
+
 #install adobe air
 wget http://airdownload.adobe.com/air/lin/download/2.6/adobeair.deb
 sudo dpkg -i adobeair.deb
