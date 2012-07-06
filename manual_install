@@ -1,7 +1,6 @@
 #Sublime Text 2
 sudo add-apt-repository ppa:webupd8team/sublime-text-2
-sudo apt-get update
-sudo apt-get install sublime-text-2
+sudo apt-get update && sudo apt-get install sublime-text
 
 #synapse
 sudo add-apt-repository ppa:synapse-core/ppa
@@ -14,3 +13,7 @@ sudo apt-get update && sudo apt-get install jdownloader
 #gmail watcher
 sudo apt-add-repository ppa:loneowais/gmailwatcher.dev
 sudo apt-get update && sudo apt-get install gmailwatcher
+
+#handbrake
+sudo apt-add-repository ppa:stebbins/handbrake-releases
+sudo apt-get update && sudo apt-get install handbrake
